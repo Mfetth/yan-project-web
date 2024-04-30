@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+    <h1>Мои рецепты</h1>
+    <a class="btn btn-success btn-lg" href="/my_recipes/add">+</a>
+    </div><br>
+        <div class="row">
+            {% for recipe in json_recipes %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/static/images/{{ recipe.id }}.png">
+                    <div class="card-body">
+                        {% if recipe.is_private == 1 %}
+                        <h5 class="card-title private-recipe">{{ recipe.title.capitalize() }}</h5>
+                        {% else %}
+                        <h5 class="card-title">{{ recipe.title.capitalize() }}</h5>
+                        {% endif %}
+                        <p class="card-text">Время приготовления: {{ recipe.cooking_time }} минут</p>
+                        <div>
+                            <a href="/recipes/get/id/{{ recipe.id }}" class="btn btn-primary">Подробнее</a>
+                            <a href="/recipes/del/id/{{ recipe.id }}" class="btn btn-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+{% endblock %}

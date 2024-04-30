@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if is_found %}
+<div class="container center">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form action="/search" method="GET">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" placeholder="Введите запрос">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Найти</button>
+                        </div>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="searchType" name="searchType" value="title">
+                        <label class="form-check-label" for="searchType">Поиск по названию</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <h1>Результаты поиска:</h1>
+    </div><br>
+        <div class="row">
+            {% for recipe in json_recipes %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/static/images/{{ recipe.id }}.png">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe.title.capitalize() }}</h5>
+                        <p class="card-text">Время приготовления: {{ recipe.cooking_time }}</p>
+                        <div>
+                            <a href="/recipes/get/id/{{ recipe.id }}" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+{% else %}
+<div class="container center">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form action="/search" method="GET">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" placeholder="Введите запрос">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Найти</button>
+                        </div>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="searchType" name="searchType" value="title">
+                        <label class="form-check-label" for="searchType">Поиск по названию</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <h1>Результаты поиска:</h1><br>
+        <h2>По вашему запросу ничего не найдено</h2>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if not author %}
+<h1 class="text-center">{{ message }}</h1>
+<div class="container mt-5">
+    <div class="card border-primary mx-auto" style="max-width: 600px;">
+      <div class="card-header bg-primary text-white">
+        <h1>{{ json_recipe[0].title.capitalize() }}</h1>
+        <h3><b>Автор:</b> Вы</h3>
+        <h5><b>Дата создания:</b> {{ json_recipe[0].str_created_date }}</h5>
+      </div>
+      <div class="card-body">
+        <img src="/static/images/{{ json_recipe[0].id }}.png" class="img-fluid mb-3" alt="News Image">
+        <p class="card-text"><b>Ингредиенты:</b> {{ json_recipe[0].ingredients }}</p>
+        <p><b>Описание приготовления:</b> {{ json_recipe[0].description_of_cooking }}</p>
+        <p><b>Время приготовления:</b> {{ json_recipe[0].cooking_time }}</p>
+      </div>
+      <a href="/recipes/del/id/{{ json_recipe[0].id }}" class="btn btn-danger">Удалить</a>
+    </div>
+</div>
+{% else %}
+<h1 class="text-center">{{ message }}{{ author }}</h1>
+<div class="container mt-5">
+    <div class="card border-primary mx-auto" style="max-width: 600px;">
+      <div class="card-header bg-primary text-white">
+        <h1>{{ json_recipe[0].title.capitalize() }}</h1>
+        <h3><b>Автор:</b> @{{ author }}</h3>
+        <h5><b>Дата создания:</b> {{ json_recipe[0].str_created_date }}</h5>
+      </div>
+      <div class="card-body">
+        <img src="/static/images/{{ json_recipe[0].id }}.png" class="img-fluid mb-3" alt="News Image">
+        <p class="card-text"><b>Ингредиенты:</b> {{ json_recipe[0].ingredients }}</p>
+        <p><b>Описание приготовления:</b> {{ json_recipe[0].description_of_cooking }}</p>
+        <p><b>Время приготовления:</b> {{ json_recipe[0].cooking_time }} минут</p>
+      </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>{{title}}</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-light bg-primary">
+        <a class="navbar-brand" href="/">Книга рецептов</a>
+    </nav>
+</header>
+<br>
+<main role="main" class="container">
+    {% block content %}
+    {% if current_user.is_authenticated %}
+    <div class="container center">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form action="/search" method="GET">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" placeholder="Введите запрос">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Найти</button>
+                        </div>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="searchType" name="searchType" value="title">
+                        <label class="form-check-label" for="searchType">Поиск по названию</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container-user-logged-in">
+        <p>
+        <h1><b>Добро пожаловать,</b></h1>
+        <h3>Вы авторизованы как {{ current_user.username }}</h3>
+        <a class="btn btn-primary btn-lg" href="/logout">Выйти</a>
+        </p>
+        <p>
+            <a class="btn btn-primary btn-lg" href="/my_recipes">Мои рецепты</a>
+        </p>
+    </div>
+    {% else %}
+    <div class="jumbotron">
+        <h1 class="display-4">Добро пожаловать!</h1>
+        <p class="lead">Приветствуем вас на главной странице сайта "Книга рецептов". Для просмотра публичных рецептов
+            вам необходимо авторизоваться на сайте.</p>
+        <hr class="my-4">
+        <div class="text-center">
+            <a class="btn btn-primary btn-lg" href="/register" role="button">Зарегистрироваться</a>
+            <a class="btn btn-primary btn-lg" href="/login" role="button">Войти</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endblock %}
+</main>
+</body>
+<footer class="footer mt-auto py-3 bg-primary ">
+    <div class="container">
+        <span class="text-light">&copy; Recipe Book 2023-2024</span>
+    </div>
+</footer>
+</html>
